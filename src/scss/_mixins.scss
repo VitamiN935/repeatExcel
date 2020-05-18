@@ -1,0 +1,25 @@
+@mixin button($color:green) {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  padding: 2px;
+  background: transparent;
+
+  &:hover {
+    color: $color;
+    cursor: pointer;
+    background: #fff;
+  }
+
+  & span {
+    font-size: 1.5rem;
+  }
+}
+
+@mixin cleanList() {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
