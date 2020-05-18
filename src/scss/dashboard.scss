@@ -1,0 +1,88 @@
+@import "variables";
+@import "mixins";
+
+.dashboard {
+
+  &__header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    height: $dashboard-header;
+    box-shadow: 0 2px 5px 2px rgba(14 45 14.15);
+  }
+
+  &__new {
+    margin-top: $dashboard-header;
+    background: #cacad0;
+    padding: 1.8rem;
+
+    & .create {
+      text-decoration: none;
+      color: black;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 140px;
+      text-align: center;
+      background: #fff;
+      font-size: 1.2rem;
+      border: 1px solid #cacad0;
+      border-radius: 5px;
+
+      &:hover {
+        color: green;
+        border: 1px solid green;
+        cursor: pointer;
+        outline: none;
+      }
+    }
+  }
+
+  &__view {
+    margin: 0 auto;
+    max-width: 800px;
+
+  }
+
+  &__table {
+    padding: 0 4px;
+  }
+
+  &__list {
+    @include cleanList()
+  }
+
+  &__list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 10px;
+  }
+
+  &__record {
+    font-size: 1.1rem;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & a {
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
