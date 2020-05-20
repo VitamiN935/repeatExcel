@@ -14,6 +14,7 @@ export class ExcelComponent extends DomListener {
     this.removeDomListeners();
   }
 
+
   toHTML() {
     return ''
   }
