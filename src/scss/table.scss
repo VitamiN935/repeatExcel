@@ -12,56 +12,87 @@
   .row {
     display: flex;
     height: $row-height;
+  }
 
-    & .row-info {
-      background: #eeeaea;
-      width: $info-title-width;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid $border-color;
-      border-top: none;
+  & .row-info {
+    position: relative;
+    background: #eeeaea;
+    min-width: $info-title-width;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $border-color;
+    border-top: none;
+  }
+
+  & .row-data {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    color: #000000;
+  }
+
+  & .column {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border: 1px solid $border-color;
+    border-top: none;
+    border-left: none;
+    min-width: $ceil-column-width;
+  }
+
+  & .ceil {
+    height: 100%;
+    border: 1px solid #ddd6d6;
+    border-top: none;
+    border-left: none;
+    min-width: $ceil-column-width;
+    padding: 7px 5px 4px;
+    background: white;
+
+    &:focus {
+      outline: none;
     }
 
-
-    & .row-data {
-      display: flex;
-      height: 100%;
-      width: 100%;
-      color: #000000;
-
-      & .column {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        border: 1px solid $border-color;
-        border-top: none;
-        border-left: none;
-        min-width: $ceil-column-width;
-      }
-
-
-      & .ceil {
-        height: 100%;
-        border: 1px solid #ddd6d6;
-        border-top: none;
-        border-left: none;
-        min-width: $ceil-column-width;
-        padding: 7px 5px 4px;
-        background: white;
-
-        &:focus {
-          outline: none;
-        }
-
-        &.selected {
-          border: none;
-          outline: 1px solid #58a8e3;
-          z-index: 2;
-        }
-      }
+    &.selected {
+      border: none;
+      outline: 1px solid $primary-color;
+      z-index: 2;
     }
   }
+
+  .col-resize, .row-resize {
+    position: absolute;
+    background: $primary-color;
+    opacity: 0;
+    right: 0;
+    bottom: 0;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .col-resize {
+    top: 0;
+    width: 4px;
+
+    &:hover{
+      cursor: col-resize;
+    }
+  }
+
+  .row-resize {
+    left: 0;
+    height: 4px;
+    &:hover{
+      cursor: row-resize;
+    }
+  }
+
 }
+
