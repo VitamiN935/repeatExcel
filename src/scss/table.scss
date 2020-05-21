@@ -11,6 +11,7 @@
 
   .row {
     display: flex;
+    min-height: 10px;
     height: $row-height;
   }
 
@@ -28,8 +29,6 @@
 
   & .row-data {
     display: flex;
-    height: 100%;
-    width: 100%;
     color: #000000;
   }
 
@@ -42,7 +41,8 @@
     border: 1px solid $border-color;
     border-top: none;
     border-left: none;
-    min-width: $ceil-column-width;
+    min-width: 40px;
+    width: $ceil-column-width;
   }
 
   & .ceil {
@@ -50,7 +50,8 @@
     border: 1px solid #ddd6d6;
     border-top: none;
     border-left: none;
-    min-width: $ceil-column-width;
+    min-width: 40px;
+    width: $ceil-column-width;
     padding: 7px 5px 4px;
     background: white;
 
@@ -71,8 +72,8 @@
     opacity: 0;
     right: 0;
     bottom: 0;
-
-    &:hover {
+    z-index: 1001;
+    &:hover, &:active{
       opacity: 1;
     }
   }

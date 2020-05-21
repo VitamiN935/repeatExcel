@@ -12,8 +12,9 @@ class Dom {
     return this.$el.outerHTML;
   }
 
-  clear() {
-    this.html('');
+  css(styles = {}) {
+    Object.entries(styles)
+        .forEach(([prop, value]) => this.$el.style[prop] = value);
   }
 
   append(node) {
@@ -25,12 +26,32 @@ class Dom {
     return this;
   }
 
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector);
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect();
+  }
+
+  get data() {
+    return this.$el.dataset;
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback);
   }
 
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback);
+  }
+
+  clear() {
+    this.html('');
   }
 }
 
