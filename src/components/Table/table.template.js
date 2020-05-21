@@ -3,21 +3,23 @@ const CODE = {
   Z: 90,
 }
 
-function getCell() {
-  return `<div class="ceil"></div>`
+function getCell(_, col) {
+  return `<div class="ceil" data-col=${col}></div>`
 }
 
-function getColumn(ch) {
-  return ` <div class="column">
+function getColumn(ch, col) {
+  return ` <div class="column" data-type="resizable" data-col=${col}>
                 ${ch}
-                <div class="col-resize"></div>
+                <div class="col-resize" data-resize="col"></div>
            </div>`
 }
 
 function createRow(content, rowCount = '') {
-  const resize = rowCount ? `<div class="row-resize"></div>` : '';
+  const resize = rowCount ?
+    `<div class="row-resize" data-resize="row"></div>` : '';
+
   return `
-         <div class="row">
+         <div class="row" data-type="resizable">
            <div class="row-info">
                 ${rowCount}
                 ${resize}
