@@ -4,6 +4,17 @@ class Dom {
       document.querySelector(selector) : selector;
   }
 
+  text(text) {
+    if (typeof text === 'string') {
+      this.$el.textContent = text;
+      return this;
+    }
+    if (this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim();
+    }
+    return this.$el.textContent.trim()
+  }
+
   html(html) {
     if (html) {
       this.$el.innerHTML = html;
@@ -15,6 +26,16 @@ class Dom {
   css(styles = {}) {
     Object.entries(styles)
         .forEach(([prop, value]) => this.$el.style[prop] = value);
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className);
+    return this;
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
+    return this;
   }
 
   append(node) {
@@ -30,12 +51,27 @@ class Dom {
     return this.$el.querySelectorAll(selector);
   }
 
+  find(selector) {
+    return $(this.$el.querySelector(selector));
+  }
+
   closest(selector) {
     return $(this.$el.closest(selector))
   }
 
   getCoords() {
     return this.$el.getBoundingClientRect();
+  }
+
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: +parsed[0],
+        col: +parsed[1],
+      }
+    }
+    return this.data.id;
   }
 
   get data() {
@@ -48,6 +84,11 @@ class Dom {
 
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback);
+  }
+
+  focus() {
+    this.$el.focus();
+    return this;
   }
 
   clear() {

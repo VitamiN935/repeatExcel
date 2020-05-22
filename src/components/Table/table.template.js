@@ -3,8 +3,16 @@ const CODE = {
   Z: 90,
 }
 
-function getCell(_, col) {
-  return `<div class="ceil" data-col=${col}></div>`
+function getCell(row) {
+  return (_, col) => {
+    return `<div 
+            class="ceil" 
+            data-type="cell"
+            data-id=${row}:${col}
+            data-col=${col} 
+            contenteditable
+          ></div>`
+  }
 }
 
 function getColumn(ch, col) {
@@ -42,14 +50,13 @@ export function createTable(rowCount = 15) {
       .map(getColumn)
       .join('')
 
-  const cells = new Array(colsCount)
-      .fill('')
-      .map(getCell)
-      .join('')
-
   rows.push(createRow(cols))
-  for (let row = 1; row <= rowCount; row++) {
-    rows.push(createRow(cells, row))
+  for (let row = 0; row < rowCount; row++) {
+    const cells = new Array(colsCount)
+        .fill('')
+        .map(getCell(row))
+        .join('')
+    rows.push(createRow(cells, row + 1))
   }
 
 
