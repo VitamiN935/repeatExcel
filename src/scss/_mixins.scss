@@ -7,7 +7,7 @@
   padding: 2px;
   background: transparent;
 
-  &:hover {
+  &:hover, &.active {
     color: $color;
     cursor: pointer;
     background: #fff;

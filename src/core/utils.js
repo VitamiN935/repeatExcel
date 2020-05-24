@@ -11,3 +11,17 @@ export function range(start, end) {
       .fill('')
       .map((_, idx) => start + idx)
 }
+
+export function isEqual(a, b) {
+  if (typeof a === 'object' && typeof b === 'object') {
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+  return a === b;
+}
+
+export function storage(key, payload) {
+  if (!payload) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+  localStorage.setItem(key, JSON.stringify(payload));
+}
