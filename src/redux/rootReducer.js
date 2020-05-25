@@ -13,6 +13,8 @@ export function rootReducer(state, action) {
         currentText: action.data.value,
         [field]: getUpdatedFieldState(state, field, action),
       }
+    case types.CHANGE_TITLE:
+      return {...state, title: action.data}
     default:
       return state;
   }

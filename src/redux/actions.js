@@ -14,4 +14,11 @@ export function changeText(data) {
   }
 }
 
+export function changeTitle(data) {
+  return {
+    type: types.CHANGE_TITLE,
+    data,
+  }
+}
+
 
