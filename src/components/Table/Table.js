@@ -5,6 +5,8 @@ import {resizeHandler} from '@/components/Table/table.resize';
 import {isCelling, matrix, moveButtons, nextSelector, shouldResize} from '@/components/Table/table.functions';
 import {TableSelection} from '@/components/Table/TableSelection';
 import {$} from '@core/dom'
+import * as actions from '@/redux/actions';
+import {defaultStyles} from '@/constants';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -22,7 +24,7 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable()
+    return createTable(20, this.store.getState())
   }
 
   init() {
@@ -31,11 +33,23 @@ export class Table extends ExcelComponent {
 
     this.$on('formula:input', data => {
       this.selector.$current.text(data)
+      this.changeTextInStore(data)
     })
 
     this.$on(`formula:enter`, () => {
       this.selector.$current.focus()
     })
+
+    this.$on('toolbar:applyStyle', style => {
+      this.selector.applyStyle(style);
+    })
+  }
+
+  changeTextInStore(value) {
+    this.$dispatch(actions.changeText({
+      id: this.selector.$current.id(),
+      value,
+    }))
   }
 
   selectCell($cell) {
@@ -44,12 +58,18 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
-    this.$emit('table:input', $(event.target))
+    // this.$emit('table:input', $(event.target))
+    this.changeTextInStore($(event.target).text())
+  }
+
+  async tableResize(event) {
+    const data = await resizeHandler(this.$root, event);
+    this.$dispatch(actions.tableResize(data));
   }
 
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(this.$root, event);
+      this.tableResize(event);
     } else if (isCelling(event)) {
       const $target = $(event.target);
       if (event.shiftKey) {
@@ -57,7 +77,8 @@ export class Table extends ExcelComponent {
             .map(id => this.$root.find(`[data-id="${id}"]`))
         this.selector.selectGroup($group);
       } else {
-        this.selectCell($target)
+        this.selectCell($target);
+        console.log($target.getStyles(Object.keys(defaultStyles)))
       }
     }
   }
